@@ -23,12 +23,9 @@ namespace WindowsForms
             ControlsVisibility(false);
             cbShowDate.Checked = true;
 
-            contextMenu.MenuItems.Add("show/hide controls");
-            contextMenu.MenuItems.Add("show/hide date");
-            contextMenu.MenuItems.Add("exit");
-            contextMenu.MenuItems[0].Click += new EventHandler(showControls_Click);
-            contextMenu.MenuItems[1].Click += new EventHandler(showDate_Click);
-            contextMenu.MenuItems[2].Click += new EventHandler(exit_Click);
+            contextMenu.MenuItems.Add("show controls").Click += new EventHandler(showControls_Click);
+            contextMenu.MenuItems.Add("show date").Click += new EventHandler(showDate_Click);
+            contextMenu.MenuItems.Add("exit").Click += new EventHandler(exit_Click);
             trayIcon.ContextMenu = contextMenu;
         }
         void ControlsVisibility(bool visible)
@@ -43,10 +40,10 @@ namespace WindowsForms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = DateTime.Now.ToString("hh:mm:ss");
+            label1.Text = DateTime.Now.ToString("T");
             //label2.Text = DateTime.Now.ToString("d.MM.yyy ddd");
             //label2.Visible = cbShowDate.Checked;
-            if(cbShowDate.Checked)
+            if (cbShowDate.Checked)
             {
                 string date = DateTime.Now.ToString("d.MM.yyy ddd");
                 label1.Text = $"{label1.Text}\n{date}";
