@@ -23,9 +23,9 @@ namespace WindowsForms
             ControlsVisibility(false);
             cbShowDate.Checked = true;
 
-            contextMenu.MenuItems.Add("Show controls");
-            contextMenu.MenuItems.Add("Show date");
-            contextMenu.MenuItems.Add("Exit");
+            contextMenu.MenuItems.Add("show/hide controls");
+            contextMenu.MenuItems.Add("show/hide date");
+            contextMenu.MenuItems.Add("exit");
             contextMenu.MenuItems[0].Click += new EventHandler(showControls_Click);
             contextMenu.MenuItems[1].Click += new EventHandler(showDate_Click);
             contextMenu.MenuItems[2].Click += new EventHandler(exit_Click);
@@ -75,7 +75,8 @@ namespace WindowsForms
 
         private void showControls_Click(object sender, EventArgs e)
         {
-            ControlsVisibility(true);
+            if (cbShowDate.Visible) ControlsVisibility(false);
+            else ControlsVisibility(true);
         }
 
         private void showDate_Click(object sender, EventArgs e)
