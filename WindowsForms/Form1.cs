@@ -24,6 +24,8 @@ namespace WindowsForms
 		bool showControls;
 		ChooseFont chooseFont;
 		int fontIndex;
+
+		Alarm alarm;
 		public Form1()
 		{
 			InitializeComponent();
@@ -38,6 +40,7 @@ namespace WindowsForms
 			//label1.ForeColor = Color.Red;
 			//label1.BackColor = Color.Black;
 			size = 48;
+			alarm = new Alarm();
 			LoadSettings();
 			chooseFont = new ChooseFont(fontIndex);
             colorDialog1 = new ColorDialog();
@@ -55,6 +58,7 @@ namespace WindowsForms
 			this.TransparencyKey = !visible ? SystemColors.Control : Color.White;
 			this.FormBorderStyle = !visible ? FormBorderStyle.None : FormBorderStyle.Sizable;
 			showControlsToolStripMenuItem.Checked = visible;
+			btnSetAlarm.Visible = visible;
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
@@ -69,7 +73,13 @@ namespace WindowsForms
 				string date = DateTime.Now.ToString("yyyy.MM.dd ddd");
 				label1.Text = $"{label1.Text}\n{date}";
 			}
-		}
+			string currentTime = DateTime.Now.ToString("dd.MM.yyyy h:mm:ss");
+			if (alarm.alarmTime.ToString() == currentTime)
+            {
+				alarm.snd.Play();
+                MessageBox.Show(this, "alarm");
+            }
+        }
 
 		private void btnExit_Click(object sender, EventArgs e)
 		{
@@ -164,5 +174,10 @@ namespace WindowsForms
 				label1.BackColor = background; 
 			}
 		}
-	}
+
+        private void btnSetAlarm_Click(object sender, EventArgs e)
+        {
+			DialogResult result = alarm.ShowDialog();
+        }
+    }
 }
