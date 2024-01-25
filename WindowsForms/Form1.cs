@@ -77,7 +77,7 @@ namespace WindowsForms
 			if (alarm.alarmTime.ToString() == currentTime)
             {
 				alarm.snd.Play();
-                MessageBox.Show(this, "alarm");
+                MessageBox.Show("Alarm", "Info");
             }
         }
 
@@ -177,12 +177,12 @@ namespace WindowsForms
 
         private void btnSetAlarm_Click(object sender, EventArgs e)
         {
-			DialogResult result = alarm.ShowDialog();
+			alarm.ShowDialog();
         }
 
         private void AlarmMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = alarm.ShowDialog();
+           alarm.ShowDialog();
         }
     }
 }
