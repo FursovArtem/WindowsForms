@@ -23,6 +23,7 @@ namespace WindowsForms
 		bool showDate;
 		bool showControls;
 		ChooseFont chooseFont;
+		int fontIndex;
 		public Form1()
 		{
 			InitializeComponent();
@@ -34,12 +35,16 @@ namespace WindowsForms
 			showDate = false;
 			showControls = false;
 			Directory.SetCurrentDirectory("..\\..\\Fonts");
-			chooseFont = new ChooseFont();
-			label1.ForeColor = Color.Red;
-			label1.BackColor = Color.Black;
+			//label1.ForeColor = Color.Red;
+			//label1.BackColor = Color.Black;
 			size = 48;
 			LoadSettings();
-		}
+			chooseFont = new ChooseFont(fontIndex);
+            colorDialog1 = new ColorDialog();
+            colorDialog2 = new ColorDialog();
+			colorDialog1.Color = foreground;
+			colorDialog2.Color = background;
+        }
 		void ControlsVisibility(bool visible)
 		{
 			cbShowDate.Visible = visible;
@@ -56,7 +61,7 @@ namespace WindowsForms
 		{
 			//https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
 			//https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
-			label1.Text = DateTime.Now.ToString("hh:mm:ss tt");
+			label1.Text = DateTime.Now.ToString("T");
 			//label2.Text = DateTime.Now.ToString("yyyy.MM.dd ddd");
 			//label2.Visible = cbShowDate.Checked;
 			if (cbShowDate.Checked)
@@ -98,11 +103,14 @@ namespace WindowsForms
 		private void btnChooseFont_Click(object sender, EventArgs e)
 		{
 			//chooseFont.NewFont = label1.Font;
+			//ChooseFont chooseFont = new ChooseFont(fontFile);
+			chooseFont.SetActualFont(fontIndex);
 			DialogResult result = chooseFont.ShowDialog(this);
 			if (result == DialogResult.OK)
 			{
 				label1.Font = chooseFont.NewFont;
 				fontFile = chooseFont.AllFonts[chooseFont.Index];
+				fontIndex = chooseFont.Index;
 			}
 		}
 		public void SaveSettings()
@@ -112,17 +120,19 @@ namespace WindowsForms
 			sw.WriteLine(label1.Font.Size);
 			sw.WriteLine(label1.ForeColor.ToArgb());
 			sw.WriteLine(label1.BackColor.ToArgb());
+			sw.WriteLine(fontIndex);
 			sw.Close();
 		}
 		public void LoadSettings()
 		{
 			//Directory.SetCurrentDirectory("..\\..\\Fonts");
-			MessageBox.Show(this, Directory.GetCurrentDirectory());
+			//MessageBox.Show(this, Directory.GetCurrentDirectory());
 			StreamReader sr = new StreamReader("Settings.cfg");
 			fontFile = sr.ReadLine();
 			size = Convert.ToInt32(sr.ReadLine());
 			foreground = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
 			background = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
+			fontIndex = Convert.ToInt32(sr.ReadLine());
 			sr.Close();
 
 			PrivateFontCollection pfc = new PrivateFontCollection();
@@ -135,19 +145,24 @@ namespace WindowsForms
 
 		private void foregroundToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			colorDialog1 = new ColorDialog();
-			colorDialog1.ShowDialog();
-			foreground = colorDialog1.Color;
-			label1.ForeColor = foreground;
+			//colorDialog1 = new ColorDialog();
+			DialogResult result = colorDialog1.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				foreground = colorDialog1.Color;
+				label1.ForeColor = foreground; 
+			}
 		}
 
 		private void backgroundToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			colorDialog2 = new ColorDialog();
-			colorDialog2.ShowDialog();
-
-			background = colorDialog2.Color;
-			label1.BackColor = background;
+			//colorDialog2 = new ColorDialog();
+			DialogResult result = colorDialog2.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				background = colorDialog2.Color;
+				label1.BackColor = background; 
+			}
 		}
 	}
 }

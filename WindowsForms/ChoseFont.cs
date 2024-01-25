@@ -12,45 +12,73 @@ using System.Drawing.Text;
 
 namespace WindowsForms
 {
-	public partial class ChooseFont : Form
-	{
-		public int Index { get { return index; } }
-		public string[] AllFonts { get { return allFonts; } }
-		int index;
-		string[] allFonts;
-		public System.Drawing.Font NewFont { get; set; }
-		public ChooseFont()
-		{
-			InitializeComponent();
-			allFonts = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.?tf", SearchOption.AllDirectories);
-			foreach (string i in allFonts)
-			{
-				cbFonts.Items.Add(i.Split('\\').Last());
-			}
-		}
+    public partial class ChooseFont : Form
+    {
+        public int Index { get { return index; } }
+        public string[] AllFonts { get { return allFonts; } }
+        int index;
+        string[] allFonts;
+        public System.Drawing.Font NewFont { get; set; }
+        public ChooseFont()
+        {
+            InitializeComponent();
+            if (allFonts == null) allFonts = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.?tf", SearchOption.AllDirectories);
+            foreach (string i in allFonts)
+            {
+                cbFonts.Items.Add(i.Split('\\').Last());
+            }
+        }
+        public ChooseFont(string fontFile) : this()
+        {
+            SetActualFont(fontFile);
+        }
+        public ChooseFont(int fontIndex) : this()
+        {
+            SetActualFont(fontIndex);
+        }
+        public void SetActualFont(string fontFile)
+        {
+            index = cbFonts.SelectedIndex = Array.IndexOf(allFonts, fontFile);
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            pfc.AddFontFile(allFonts[cbFonts.SelectedIndex]);
+            lblExample.Font = new Font(pfc.Families[0], 48);
+        }
+        public void SetActualFont(int index)
+        {
+            this.index = index;
+            cbFonts.SelectedIndex = index;
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            pfc.AddFontFile(allFonts[index]);
+            lblExample.Font = new Font(pfc.Families[0], 48);
+        }
 
-		private void btnCancel_Click(object sender, EventArgs e)
-		{
-			this.Close();
-		}
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-		private void btnOK_Click(object sender, EventArgs e)
-		{
-			string currentDirectory = Directory.GetCurrentDirectory();
-			//MessageBox.Show(this, currentDirectory);
-			NewFont = lblExample.Font;
-			this.Close();
-		}
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            //MessageBox.Show(this, currentDirectory);
+            NewFont = lblExample.Font;
+            this.Close();
+        }
 
-		private void cbFonts_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			lblFullName.Text = allFonts[cbFonts.SelectedIndex];
-			PrivateFontCollection pfc = new PrivateFontCollection();
-			//pfc.AddFontFile(cbFonts.SelectedItem.ToString());
-			pfc.AddFontFile(allFonts[cbFonts.SelectedIndex]);
-			NewFont = new Font(pfc.Families[0], 48);
-			lblExample.Font = NewFont;
-			index = cbFonts.SelectedIndex;
-		}
-	}
+        private void cbFonts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*
+            lblFullName.Text = allFonts[cbFonts.SelectedIndex];
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            //pfc.AddFontFile(cbFonts.SelectedItem.ToString());
+            pfc.AddFontFile(allFonts[cbFonts.SelectedIndex]);
+            //NewFont = new Font(pfc.Families[0], 48);
+            //lblExample.Font = NewFont;
+            lblExample.Font = new Font(pfc.Families[0], 48);
+            index = cbFonts.SelectedIndex;
+            */
+            SetActualFont(cbFonts.SelectedIndex);
+            lblFullName.Text = allFonts[index];
+        }
+    }
 }
