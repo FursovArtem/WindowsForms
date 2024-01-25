@@ -179,5 +179,10 @@ namespace WindowsForms
         {
 			DialogResult result = alarm.ShowDialog();
         }
+
+        private void AlarmMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = alarm.ShowDialog();
+        }
     }
 }

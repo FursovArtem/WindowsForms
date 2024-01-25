@@ -51,6 +51,8 @@
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.btnSetAlarm = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.AlarmMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -78,9 +80,11 @@
             this.colorToolStripMenuItem,
             this.chooseFontToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.AlarmMenuItem,
+            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 154);
             // 
             // showDateToolStripMenuItem
             // 
@@ -209,10 +213,22 @@
             this.btnSetAlarm.Name = "btnSetAlarm";
             this.btnSetAlarm.Size = new System.Drawing.Size(225, 58);
             this.btnSetAlarm.TabIndex = 6;
-            this.btnSetAlarm.Text = "Alarm set";
+            this.btnSetAlarm.Text = "Set alarm";
             this.btnSetAlarm.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSetAlarm.UseVisualStyleBackColor = true;
             this.btnSetAlarm.Click += new System.EventHandler(this.btnSetAlarm_Click);
+            // 
+            // AlarmMenuItem
+            // 
+            this.AlarmMenuItem.Name = "AlarmMenuItem";
+            this.AlarmMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.AlarmMenuItem.Text = "Set alarm";
+            this.AlarmMenuItem.Click += new System.EventHandler(this.AlarmMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
             // 
             // Form1
             // 
@@ -260,6 +276,8 @@
 		private System.Windows.Forms.ColorDialog colorDialog2;
         private System.Windows.Forms.Button btnSetAlarm;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.ToolStripMenuItem AlarmMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
