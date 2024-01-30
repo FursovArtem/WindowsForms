@@ -20,7 +20,7 @@ namespace WindowsForms
             InitializeComponent();
             dateTimePicker.CustomFormat = "HH:mm:ss";
             dateTimePicker.ShowUpDown = true;
-            dateTimePicker.Value = new DateTime(2024, 1, 25, 0, 0, 0);
+            dateTimePicker.Value = DateTime.Now;
             alarmTime = DateTime.MaxValue;
             snd = new SoundPlayer(Properties.Resources.alarm);
         }
