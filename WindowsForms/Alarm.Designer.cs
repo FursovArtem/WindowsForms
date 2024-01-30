@@ -64,7 +64,7 @@
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(273, 80);
             this.dateTimePicker.TabIndex = 7;
-            this.dateTimePicker.Value = new System.DateTime(2024, 1, 25, 9, 7, 8, 0);
+            this.dateTimePicker.Value = new System.DateTime(2024, 1, 30, 0, 0, 0, 0);
             // 
             // Alarm
             // 
