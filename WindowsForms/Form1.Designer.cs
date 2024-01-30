@@ -40,6 +40,8 @@
             this.backgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.AlarmMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.cbShowDate = new System.Windows.Forms.CheckBox();
@@ -51,8 +53,7 @@
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.btnSetAlarm = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.AlarmMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCurrentAlarms = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -142,6 +143,18 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(146, 6);
             // 
+            // AlarmMenuItem
+            // 
+            this.AlarmMenuItem.Name = "AlarmMenuItem";
+            this.AlarmMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.AlarmMenuItem.Text = "Set alarm";
+            this.AlarmMenuItem.Click += new System.EventHandler(this.AlarmMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -218,23 +231,24 @@
             this.btnSetAlarm.UseVisualStyleBackColor = true;
             this.btnSetAlarm.Click += new System.EventHandler(this.btnSetAlarm_Click);
             // 
-            // AlarmMenuItem
+            // btnCurrentAlarms
             // 
-            this.AlarmMenuItem.Name = "AlarmMenuItem";
-            this.AlarmMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.AlarmMenuItem.Text = "Set alarm";
-            this.AlarmMenuItem.Click += new System.EventHandler(this.AlarmMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            this.btnCurrentAlarms.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
+            this.btnCurrentAlarms.Location = new System.Drawing.Point(257, 319);
+            this.btnCurrentAlarms.Name = "btnCurrentAlarms";
+            this.btnCurrentAlarms.Size = new System.Drawing.Size(225, 58);
+            this.btnCurrentAlarms.TabIndex = 7;
+            this.btnCurrentAlarms.Text = "Current alarms";
+            this.btnCurrentAlarms.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnCurrentAlarms.UseVisualStyleBackColor = true;
+            this.btnCurrentAlarms.Click += new System.EventHandler(this.btnCurrentAlarms_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 450);
+            this.Controls.Add(this.btnCurrentAlarms);
             this.Controls.Add(this.btnSetAlarm);
             this.Controls.Add(this.btnChooseFont);
             this.Controls.Add(this.btnExit);
@@ -278,6 +292,7 @@
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.ToolStripMenuItem AlarmMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Button btnCurrentAlarms;
     }
 }
 

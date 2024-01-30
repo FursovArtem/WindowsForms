@@ -53,6 +53,12 @@
     <Compile Include="ChoseFont.Designer.cs">
       <DependentUpon>ChoseFont.cs</DependentUpon>
     </Compile>
+    <Compile Include="CurrentAlarms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CurrentAlarms.Designer.cs">
+      <DependentUpon>CurrentAlarms.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChoseFont.resx">
       <DependentUpon>ChoseFont.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentAlarms.resx">
+      <DependentUpon>CurrentAlarms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

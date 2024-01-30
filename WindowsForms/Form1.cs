@@ -12,177 +12,187 @@ using System.Drawing.Text;
 
 namespace WindowsForms
 {
-	public partial class Form1 : Form
-	{
-		string fontFile;
-		int size;
-		System.Drawing.Font font;
-		Color foreground;
-		Color background;
+    public partial class Form1 : Form
+    {
+        string fontFile;
+        int size;
+        System.Drawing.Font font;
+        Color foreground;
+        Color background;
 
-		bool showDate;
-		bool showControls;
-		ChooseFont chooseFont;
-		int fontIndex;
+        bool showDate;
+        bool showControls;
+        ChooseFont chooseFont;
+        int fontIndex;
 
-		Alarm alarm;
-		public Form1()
-		{
-			InitializeComponent();
-			this.StartPosition = FormStartPosition.Manual;
-			int startX = Screen.PrimaryScreen.Bounds.Width - this.Width - 25;
-			int startY = 25;
-			this.SetDesktopLocation(startX, startY);
-			ControlsVisibility(false);
-			showDate = false;
-			showControls = false;
-			Directory.SetCurrentDirectory("..\\..\\Fonts");
-			//label1.ForeColor = Color.Red;
-			//label1.BackColor = Color.Black;
-			size = 48;
-			alarm = new Alarm();
-			LoadSettings();
-			chooseFont = new ChooseFont(fontIndex);
+        Alarm alarm;
+        public Form1()
+        {
+            InitializeComponent();
+            this.StartPosition = FormStartPosition.Manual;
+            int startX = Screen.PrimaryScreen.Bounds.Width - this.Width - 25;
+            int startY = 25;
+            this.SetDesktopLocation(startX, startY);
+            ControlsVisibility(false);
+            showDate = false;
+            showControls = false;
+            Directory.SetCurrentDirectory("..\\..\\Fonts");
+            //label1.ForeColor = Color.Red;
+            //label1.BackColor = Color.Black;
+            size = 48;
+            alarm = new Alarm();
+            LoadSettings();
+            chooseFont = new ChooseFont(fontIndex);
             colorDialog1 = new ColorDialog();
             colorDialog2 = new ColorDialog();
-			colorDialog1.Color = foreground;
-			colorDialog2.Color = background;
+            colorDialog1.Color = foreground;
+            colorDialog2.Color = background;
         }
-		void ControlsVisibility(bool visible)
-		{
-			cbShowDate.Visible = visible;
-			btnExit.Visible = visible;
-			btnHideControls.Visible = visible;
-			btnChooseFont.Visible = visible;
-			this.ShowInTaskbar = visible;
-			this.TransparencyKey = !visible ? SystemColors.Control : Color.White;
-			this.FormBorderStyle = !visible ? FormBorderStyle.None : FormBorderStyle.Sizable;
-			showControlsToolStripMenuItem.Checked = visible;
-			btnSetAlarm.Visible = visible;
-		}
+        void ControlsVisibility(bool visible)
+        {
+            cbShowDate.Visible = visible;
+            btnExit.Visible = visible;
+            btnHideControls.Visible = visible;
+            btnChooseFont.Visible = visible;
+            this.ShowInTaskbar = visible;
+            this.TransparencyKey = !visible ? SystemColors.Control : Color.White;
+            this.FormBorderStyle = !visible ? FormBorderStyle.None : FormBorderStyle.Sizable;
+            showControlsToolStripMenuItem.Checked = visible;
+            btnSetAlarm.Visible = visible;
+            btnCurrentAlarms.Visible = visible;
+        }
 
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-			//https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
-			//https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
-			label1.Text = DateTime.Now.ToString("T");
-			//label2.Text = DateTime.Now.ToString("yyyy.MM.dd ddd");
-			//label2.Visible = cbShowDate.Checked;
-			if (cbShowDate.Checked)
-			{
-				string date = DateTime.Now.ToString("yyyy.MM.dd ddd");
-				label1.Text = $"{label1.Text}\n{date}";
-			}
-			string currentTime = DateTime.Now.ToString("dd.MM.yyyy h:mm:ss");
-			if (alarm.alarmTime.ToString() == currentTime)
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
+            //https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
+            label1.Text = DateTime.Now.ToString("T");
+            //label2.Text = DateTime.Now.ToString("yyyy.MM.dd ddd");
+            //label2.Visible = cbShowDate.Checked;
+            if (cbShowDate.Checked)
             {
-				alarm.snd.Play();
-                MessageBox.Show("Alarm", "Info");
+                string date = DateTime.Now.ToString("yyyy.MM.dd ddd");
+                label1.Text = $"{label1.Text}\n{date}";
+            }
+            string currentTime = DateTime.Now.ToString("dd.MM.yyyy h:mm:ss");
+            for (int i = 0; i < 10; i++)
+            {
+                if (alarm.alarmTime[i].ToString() == currentTime)
+                {
+                    alarm.snd.Play();
+                    MessageBox.Show("Alarm", "Info");
+                }
+                if (i == 10) i = 0;
             }
         }
 
-		private void btnExit_Click(object sender, EventArgs e)
-		{
-			SaveSettings();
-			this.Close();
-		}
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+            this.Close();
+        }
 
-		private void btnHideControls_Click(object sender, EventArgs e)
-		{
-			showControls = false;
-			ControlsVisibility(showControls);
-		}
+        private void btnHideControls_Click(object sender, EventArgs e)
+        {
+            showControls = false;
+            ControlsVisibility(showControls);
+        }
 
-		private void label1_MouseHover(object sender, EventArgs e)
-		{
-			ControlsVisibility(true);
-		}
+        private void label1_MouseHover(object sender, EventArgs e)
+        {
+            ControlsVisibility(true);
+        }
 
-		private void showDateToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			showDate = showDateToolStripMenuItem.Checked;
-			cbShowDate.Checked = showDate;
-		}
+        private void showDateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showDate = showDateToolStripMenuItem.Checked;
+            cbShowDate.Checked = showDate;
+        }
 
-		private void showControlsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			showControls = showControlsToolStripMenuItem.Checked;
-			ControlsVisibility(showControls);
-		}
+        private void showControlsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showControls = showControlsToolStripMenuItem.Checked;
+            ControlsVisibility(showControls);
+        }
 
-		private void btnChooseFont_Click(object sender, EventArgs e)
-		{
-			//chooseFont.NewFont = label1.Font;
-			//ChooseFont chooseFont = new ChooseFont(fontFile);
-			chooseFont.SetActualFont(fontIndex);
-			DialogResult result = chooseFont.ShowDialog(this);
-			if (result == DialogResult.OK)
-			{
-				label1.Font = chooseFont.NewFont;
-				fontFile = chooseFont.AllFonts[chooseFont.Index];
-				fontIndex = chooseFont.Index;
-			}
-		}
-		public void SaveSettings()
-		{
-			StreamWriter sw = new StreamWriter("Settings.cfg");
-			sw.WriteLine(fontFile);
-			sw.WriteLine(label1.Font.Size);
-			sw.WriteLine(label1.ForeColor.ToArgb());
-			sw.WriteLine(label1.BackColor.ToArgb());
-			sw.WriteLine(fontIndex);
-			sw.Close();
-		}
-		public void LoadSettings()
-		{
-			//Directory.SetCurrentDirectory("..\\..\\Fonts");
-			//MessageBox.Show(this, Directory.GetCurrentDirectory());
-			StreamReader sr = new StreamReader("Settings.cfg");
-			fontFile = sr.ReadLine();
-			size = Convert.ToInt32(sr.ReadLine());
-			foreground = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
-			background = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
-			fontIndex = Convert.ToInt32(sr.ReadLine());
-			sr.Close();
+        private void btnChooseFont_Click(object sender, EventArgs e)
+        {
+            //chooseFont.NewFont = label1.Font;
+            //ChooseFont chooseFont = new ChooseFont(fontFile);
+            chooseFont.SetActualFont(fontIndex);
+            DialogResult result = chooseFont.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                label1.Font = chooseFont.NewFont;
+                fontFile = chooseFont.AllFonts[chooseFont.Index];
+                fontIndex = chooseFont.Index;
+            }
+        }
+        public void SaveSettings()
+        {
+            StreamWriter sw = new StreamWriter("Settings.cfg");
+            sw.WriteLine(fontFile);
+            sw.WriteLine(label1.Font.Size);
+            sw.WriteLine(label1.ForeColor.ToArgb());
+            sw.WriteLine(label1.BackColor.ToArgb());
+            sw.WriteLine(fontIndex);
+            sw.Close();
+        }
+        public void LoadSettings()
+        {
+            //Directory.SetCurrentDirectory("..\\..\\Fonts");
+            //MessageBox.Show(this, Directory.GetCurrentDirectory());
+            StreamReader sr = new StreamReader("Settings.cfg");
+            fontFile = sr.ReadLine();
+            size = Convert.ToInt32(sr.ReadLine());
+            foreground = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
+            background = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
+            fontIndex = Convert.ToInt32(sr.ReadLine());
+            sr.Close();
 
-			PrivateFontCollection pfc = new PrivateFontCollection();
-			pfc.AddFontFile(fontFile);
-			System.Drawing.Font font = new System.Drawing.Font(pfc.Families[0], size);
-			label1.Font = font;
-			label1.BackColor = background;
-			label1.ForeColor = foreground;
-		}
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            pfc.AddFontFile(fontFile);
+            System.Drawing.Font font = new System.Drawing.Font(pfc.Families[0], size);
+            label1.Font = font;
+            label1.BackColor = background;
+            label1.ForeColor = foreground;
+        }
 
-		private void foregroundToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			//colorDialog1 = new ColorDialog();
-			DialogResult result = colorDialog1.ShowDialog();
-			if (result == DialogResult.OK)
-			{
-				foreground = colorDialog1.Color;
-				label1.ForeColor = foreground; 
-			}
-		}
+        private void foregroundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //colorDialog1 = new ColorDialog();
+            DialogResult result = colorDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                foreground = colorDialog1.Color;
+                label1.ForeColor = foreground;
+            }
+        }
 
-		private void backgroundToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			//colorDialog2 = new ColorDialog();
-			DialogResult result = colorDialog2.ShowDialog();
-			if (result == DialogResult.OK)
-			{
-				background = colorDialog2.Color;
-				label1.BackColor = background; 
-			}
-		}
+        private void backgroundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //colorDialog2 = new ColorDialog();
+            DialogResult result = colorDialog2.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                background = colorDialog2.Color;
+                label1.BackColor = background;
+            }
+        }
 
         private void btnSetAlarm_Click(object sender, EventArgs e)
         {
-			alarm.ShowDialog();
+            alarm.ShowDialog();
         }
 
         private void AlarmMenuItem_Click(object sender, EventArgs e)
         {
-           alarm.ShowDialog();
+            alarm.ShowDialog();
+        }
+
+        private void btnCurrentAlarms_Click(object sender, EventArgs e)
+        {
+            alarm.ca.ShowDialog();
         }
     }
 }
