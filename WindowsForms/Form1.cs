@@ -44,6 +44,8 @@ namespace WindowsForms
             colorDialog2 = new ColorDialog();
 			colorDialog1.Color = foreground;
 			colorDialog2.Color = background;
+
+			TopmostToolStripMenuItem.Checked = true;
         }
 		void ControlsVisibility(bool visible)
 		{
@@ -165,5 +167,17 @@ namespace WindowsForms
 				label1.BackColor = background; 
 			}
 		}
-	}
+
+        private void TopmostToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			this.TopMost = TopmostToolStripMenuItem.Checked;
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+			this.WindowState = FormWindowState.Minimized;
+			this.WindowState = FormWindowState.Maximized;
+			this.WindowState = FormWindowState.Normal;
+        }
+    }
 }
