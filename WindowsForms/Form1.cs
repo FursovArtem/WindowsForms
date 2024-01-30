@@ -74,7 +74,7 @@ namespace WindowsForms
                 string date = DateTime.Now.ToString("yyyy.MM.dd ddd");
                 label1.Text = $"{label1.Text}\n{date}";
             }
-            string currentTime = DateTime.Now.ToString("dd.MM.yyyy h:mm:ss");
+            string currentTime = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             for (int i = 0; i < 10; i++)
             {
                 if (alarm.alarmTime[i].ToString() == currentTime)
