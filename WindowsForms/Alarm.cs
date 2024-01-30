@@ -26,7 +26,7 @@ namespace WindowsForms
             alarmCount = 0;
             alarmTime = new DateTime[10];
             for (int i = 0; i < 10; i++) alarmTime[i] = DateTime.Now;
-            snd = new SoundPlayer(Properties.Resources.alarm);
+            snd = new SoundPlayer(Properties.Resources.alarm1);
             ca = new CurrentAlarms();
         }
 

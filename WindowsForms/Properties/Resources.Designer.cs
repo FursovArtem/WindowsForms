@@ -63,9 +63,9 @@ namespace WindowsForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream alarm {
+        internal static System.IO.UnmanagedMemoryStream alarm1 {
             get {
-                return ResourceManager.GetStream("alarm", resourceCulture);
+                return ResourceManager.GetStream("alarm1", resourceCulture);
             }
         }
     }

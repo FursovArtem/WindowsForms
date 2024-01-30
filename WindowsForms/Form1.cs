@@ -80,7 +80,7 @@ namespace WindowsForms
                 if (alarm.alarmTime[i].ToString() == currentTime)
                 {
                     alarm.snd.Play();
-                    MessageBox.Show("Alarm", "Info");
+                    MessageBox.Show("Alarm played", "Info");
                 }
                 if (i == 10) i = 0;
             }
