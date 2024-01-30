@@ -19,6 +19,7 @@ namespace WindowsForms
         int index;
         string[] allFonts;
         public System.Drawing.Font NewFont { get; set; }
+        public System.Windows.Forms.Label LblExample { get; }
         public ChooseFont()
         {
             InitializeComponent();
@@ -34,7 +35,10 @@ namespace WindowsForms
         }
         public ChooseFont(int fontIndex) : this()
         {
-            SetActualFont(fontIndex);
+            //SetActualFont(fontIndex);
+            cbFonts.SelectedIndex = fontIndex;
+            this.index = fontIndex;
+            NewFont = (Font)lblExample.Font.Clone();
         }
         public void SetActualFont(string fontFile)
         {
@@ -45,15 +49,19 @@ namespace WindowsForms
         }
         public void SetActualFont(int index)
         {
-            this.index = index;
+            //this.index = index;
             cbFonts.SelectedIndex = index;
             PrivateFontCollection pfc = new PrivateFontCollection();
             pfc.AddFontFile(allFonts[index]);
             lblExample.Font = new Font(pfc.Families[0], 48);
+            //NewFont = lblExample.Font;
+            lblFullName.Text = allFonts[index];
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            cbFonts.SelectedIndex = index;
+            lblExample.Font = (Font)NewFont.Clone();
             this.Close();
         }
 
@@ -61,7 +69,8 @@ namespace WindowsForms
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             //MessageBox.Show(this, currentDirectory);
-            NewFont = lblExample.Font;
+            this.index = cbFonts.SelectedIndex;
+            NewFont = (Font)lblExample.Font.Clone();
             this.Close();
         }
 

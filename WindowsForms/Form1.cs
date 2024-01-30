@@ -104,11 +104,12 @@ namespace WindowsForms
 		{
 			//chooseFont.NewFont = label1.Font;
 			//ChooseFont chooseFont = new ChooseFont(fontFile);
+			//ChooseFont chooseFont = new ChooseFont(fontIndex);
 			chooseFont.SetActualFont(fontIndex);
 			DialogResult result = chooseFont.ShowDialog(this);
 			if (result == DialogResult.OK)
 			{
-				label1.Font = chooseFont.NewFont;
+				label1.Font = (Font)chooseFont.NewFont.Clone();
 				fontFile = chooseFont.AllFonts[chooseFont.Index];
 				fontIndex = chooseFont.Index;
 			}
